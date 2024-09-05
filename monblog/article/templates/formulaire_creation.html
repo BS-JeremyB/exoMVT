@@ -4,7 +4,33 @@
 {% block content %}
 <form method="POST">
     {% csrf_token %}
-    {{form}}
+
+    {% for field in form %}
+        <div>
+            <label for="{{field.id_for_label}}"> {{field.label}}</label><br>
+            {{field}}
+        </div>
+
+    {% endfor %}
+<!--     
+    <div>
+        <label for="{{form.titre.id_for_label}}"> titre :</label><br>
+        {{form.titre}}
+    </div>
+    <div>
+        <label for="{{form.contenu.id_for_label}}"> contenu :</label><br>
+        {{form.contenu}}
+    </div>
+    <div>
+        <label for="{{form.date_publication.id_for_label}}"> date de publication :</label><br>
+        {{form.date_publication}}
+    </div>
+    <div>
+        <label for="{{form.auteur.id_for_label}}"> auteur :</label><br>
+        {{form.auteur}}
+    </div> -->
+
+    <!-- {{form}} -->
 
     <button type="submit"> Créer</button>
 </form>
