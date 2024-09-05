@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from .forms import *
 
 # Create your views here.
 
@@ -25,4 +26,20 @@ def detail_article(request, id):
     return render(request, 'detail.html', {'article': article} )
 
 
+def creation_article(request):
+    if request.method == "POST":
+        form = Creation_Article_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("liste")
+        
+    return render(request, 'formulaire_creation.html', {'form': Creation_Article_Form, 'titre': 'Création Article'})
 
+def creation_auteur(request):
+    if request.method == "POST":
+        form = Creation_Auteur_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("liste")
+        
+    return render(request, 'formulaire_creation.html', {'form': Creation_Auteur_Form, 'titre': 'Création Auteur'})

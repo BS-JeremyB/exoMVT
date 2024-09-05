@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 def accueil(request):
-    return HttpResponse('Bonjour, bienvenue sur MonBlog !')
+    return render(request, 'home.html')
