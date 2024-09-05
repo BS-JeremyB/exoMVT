@@ -41,5 +41,8 @@ def creation_auteur(request):
         if form.is_valid():
             form.save()
             return redirect("liste")
+
+    else:  
+        form = Creation_Auteur_Form()
         
-    return render(request, 'formulaire_creation.html', {'form': Creation_Auteur_Form, 'titre': 'Création Auteur'})
+    return render(request, 'formulaire_creation.html', {'form': form, 'titre': 'Création Auteur'})
