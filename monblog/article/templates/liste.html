@@ -10,4 +10,10 @@
         {% endfor %}
     </ul>
 
+    <h1>Titre uniquement </h1>
+    <ul>
+    {% for article_partiel in articles_titres %}
+    <li>{{article_partiel.titre}} | {{article_partiel.contenu}}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}

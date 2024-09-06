@@ -7,4 +7,11 @@
     <p>{{article.contenu}}</p>
     <em>{{article.auteur}}</em>
 
+    <form action="{% url 'supprimer_article' article.id %}">
+        <button type="submit">Supprimer</button>
+    </form>
+    <form action="{% url 'modifier_article' article.id %}">
+        <button type="submit">Modifier</button>
+    </form>
+
 {% endblock %}

@@ -10,18 +10,17 @@ def accueil(request):
 
 
 def liste_article(request):
-    articles = [{'id':1,'titre':'article 1', 'auteur': 'John Doe', 'contenu':'lorem ipsum'},{'id':2,'titre':'article 2', 'auteur': 'Jane Doe', 'contenu':'lorem ipsum bis'}]
+    articles = Article.objects.all()
+    articles_titres = Article.objects.values('titre', 'contenu')
 
-    return render(request, 'liste.html', {'articles':articles})
+    return render(request, 'liste.html', {'articles':articles, 'articles_titres':articles_titres})
 
 def contact(request):
     return render(request, 'contact.html')
 
 
-def detail_article(request, id):
-    articles = [{'id':1,'titre':'article 1', 'auteur': 'John Doe', 'contenu':'lorem ipsum'},{'id':2,'titre':'article 2', 'auteur': 'Jane Doe', 'contenu':'lorem ipsum bis'}]
-    
-    article = next(article for article in articles if article['id'] == id)
+def detail_article(request, pk):
+    article = Article.objects.get(id=pk)
 
     return render(request, 'detail.html', {'article': article} )
 
@@ -46,3 +45,21 @@ def creation_auteur(request):
         form = Creation_Auteur_Form()
         
     return render(request, 'formulaire_creation.html', {'form': form, 'titre': 'Création Auteur'})
+
+def supprimer_article(request, pk):
+    article = Article.objects.get(id=pk)
+    article.delete()
+    return redirect('liste')
+
+def modifier_article(request, pk):
+    article = Article.objects.get(id=pk)
+
+    if request.method == 'POST':
+        form = Creation_Article_Form(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect('liste')
+        
+    form = Creation_Article_Form(instance=article)
+    return render(request, 'modifier.html', {'form':form})
+                

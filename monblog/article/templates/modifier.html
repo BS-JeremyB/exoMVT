@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} Modifier Article {% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div>
+            <label for="{{field.id_for_label}}"> {{field.label}}</label><br>
+            {{field}}
+            {{field.errors}}
+        </div>
+
+    {% endfor %}
+
+    <button type="submit"> Modifier</button>
+</form>
+
+{% endblock %}
