@@ -1,19 +1,39 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} Articles {% endblock %}
 
 {% block content %}
-
-    <ul>
+<div id="content">
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for article in articles %}
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="{% static 'image/background.jpg' %}" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">{{article.titre}}</h5>
+                <p class="card-text">{{article.contenu}}</p>
+                <a href="{% url 'detail' article.id %}" class="btn btn-primary">Lire l'article</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+    {% comment %} <ul>
         {% for article in articles %}
-            <a href="{% url 'detail' article.id %}"><li>Titre : {{article.titre}} | Auteur : {{article.auteur}}</li></a>
+            <a href="{% url 'detail' article.id %}"><li>Titre : {{article.titre}} | Auteur : 
+            {% for auteur in article.auteur.all %}
+                {{auteur}},
+            {% endfor %}
+            </li></a>
             <hr>
         {% endfor %}
-    </ul>
+    </ul> {% endcomment %}
 
-    <h1>Titre uniquement </h1>
+    {% comment %} <h1>Titre uniquement </h1>
     <ul>
     {% for article_partiel in articles_titres %}
     <li>{{article_partiel.titre}} | {{article_partiel.contenu}}</li>
     {% endfor %}
-    </ul>
+    </ul> {% endcomment %}
 {% endblock %}

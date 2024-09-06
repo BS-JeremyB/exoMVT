@@ -5,7 +5,11 @@
 
     <h1>{{article.titre}}</h1>
     <p>{{article.contenu}}</p>
-    <em>{{article.auteur}}</em>
+    <em>
+        {% for auteur in article.auteur.all %}
+        {{auteur}}, 
+        {% endfor %}
+    </em>
 
     <form action="{% url 'supprimer_article' article.id %}">
         <button type="submit">Supprimer</button>
