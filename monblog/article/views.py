@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .forms import *
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
@@ -18,7 +19,7 @@ def liste_article(request):
 def contact(request):
     return render(request, 'contact.html')
 
-
+@login_required
 def detail_article(request, pk):
     article = Article.objects.get(id=pk)
 
@@ -51,6 +52,7 @@ def supprimer_article(request, pk):
     article.delete()
     return redirect('liste')
 
+@permission_required('article.Peut_Modifier_Article', raise_exception=True)
 def modifier_article(request, pk):
     article = Article.objects.get(id=pk)
 

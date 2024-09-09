@@ -16,5 +16,11 @@ class Article(models.Model):
     date_publication = models.DateField()
     auteur = models.ManyToManyField(Auteur)
 
+    class Meta:
+        permissions = [
+            ('Peut_Modifier_Article','peut modifier un article')
+        ]
     def __str__(self):
         return f'{self.titre}'
+    
+    
