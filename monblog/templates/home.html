@@ -4,5 +4,10 @@
 {% block content %}
 
     <h1>Bienvenue sur mon site !</h1>
+    {% if user.is_authenticated %}
+        <h2>{{user.username}}</2>
+    {% else %}
+        <h2>Cowboy !</h2>
+    {% endif %}
 
 {% endblock %}
